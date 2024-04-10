@@ -1,4 +1,4 @@
-package 图解算法数据结构.链表.图书管理I;
+package 分类刷题.链表.图书管理I;
 
 public class ListNode {
      int val;
