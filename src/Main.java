@@ -1,17 +1,57 @@
-// 按两次 Shift 打开“随处搜索”对话框并输入 `show whitespaces`，
-// 然后按 Enter 键。现在，您可以在代码中看到空格字符。
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        // 当文本光标位于高亮显示的文本处时按 Alt+Enter，
-        // 可查看 IntelliJ IDEA 对于如何修正该问题的建议。
-        System.out.printf("Hello and welcome!");
+        Scanner scanner = new Scanner(System.in);
 
-        // 按 Shift+F10 或点击间距中的绿色箭头按钮以运行脚本。
-        for (int i = 1; i <= 5; i++) {
+        // 输入数字范围
+        System.out.println("请输入数字范围：");
+        int rangeStart = scanner.nextInt(); // 范围开始
+        int rangeEnd = scanner.nextInt(); // 范围结束
 
-            // 按 Shift+F9 开始调试代码。我们已为您设置了一个断点，
-            // 但您始终可以通过按 Ctrl+F8 添加更多断点。
-            System.out.println("i = " + i);
+        // 输入玩家名称和数量
+        System.out.println("请输入玩家数量：");
+        int playerNum = scanner.nextInt();
+        scanner.nextLine(); // 需要在nextInt()之后使用nextLine()换行符才能读取正常名称
+
+        // 初始化玩家分数
+        Map<String, Integer> playerScores = new HashMap<>();
+        for (int i = 1; i <= playerNum; i++) {
+            System.out.println("请输入玩家" + i + "的名称：");
+            String playerName = scanner.nextLine();
+            playerScores.put(playerName, 0);
+        }
+
+        // 随机生成一个数字
+        Random random = new Random();
+        int targetNum = random.nextInt(rangeEnd - rangeStart + 1) + rangeStart;
+
+        // 循环让每个玩家循环输入猜测的数字
+        boolean isGameEnded = false;
+        while (!isGameEnded) {
+            for (String playerName : playerScores.keySet()) {
+                System.out.println(playerName + "，请猜测一个数字：");
+                int guessNum = scanner.nextInt(); // 玩家猜测的数字
+
+                if (guessNum == targetNum) { // 如果猜对了，该玩家得分加 1，游戏结束
+                    playerScores.put(playerName, playerScores.get(playerName) + 1);
+                    isGameEnded = true;
+                    break; // 跳出循环
+                } else { // 猜错了，输出提示信息
+                    String hint = guessNum < targetNum ? "小了" : "大了";
+                    System.out.println("猜错了，" + hint + "！");
+                }
+            }
+        }
+
+        // 输出每个玩家的分数
+        System.out.println("游戏结束！");
+        for (String playerName : playerScores.keySet()) {
+            System.out.println(playerName + "得分：" + playerScores.get(playerName));
         }
     }
 }
+

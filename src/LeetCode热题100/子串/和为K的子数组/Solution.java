@@ -34,35 +34,35 @@ public class Solution {
      * 2.维护一个HashMap<Integer,Integer>来存储和读取，可以在o(1)时间内解决
      * 3.由于我们在for循环生成pre数组时，顺便就可以往HashMap中存储，所以其实pre数组已经不需要了，只需要一个pre变量即可（妙啊！）
      */
-    public static int subarraySum(int[] nums, int k) {
-        HashMap<Integer, Integer> mp = new HashMap<>(){};
-        int count = 0;
-        /*
-           首先在i=0的元素之前没有元素，所以和为0，
-           也就是后面考虑以j结尾的子数组时，可以在表中找到，在此之前存在一个nums[0~i]的和为0的数组(i是多少其实根本就无所谓，只要是从nums[0]开始的就行)
-         */
-        mp.put(0,1);
-        for (int i = 0,pre = 0; i < nums.length; i++) {
-            pre += nums[i];
-            System.out.print("i="+i+" pre="+pre+" ");
-            if (mp.containsKey(pre-k)){
-                count += mp.get(pre-k);
-                System.out.print("找到子数组，count值升为"+count);
-            }
-            if (mp.containsKey(pre)){
-                mp.put(pre,mp.get(pre)+1);
-                System.out.print("pre="+pre+"++");
-            }else{
-                mp.put(pre,1);
-                System.out.print("存入pre="+pre);
-            }
-            System.out.println();
-        }
-        return count;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(subarraySum(new int[]{1,2,3},3));
-    }
+//    public static int subarraySum(int[] nums, int k) {
+//        HashMap<Integer, Integer> mp = new HashMap<>(){};
+//        int count = 0;
+//        /*
+//           首先在i=0的元素之前没有元素，所以和为0，
+//           也就是后面考虑以j结尾的子数组时，可以在表中找到，在此之前存在一个nums[0~i]的和为0的数组(i是多少其实根本就无所谓，只要是从nums[0]开始的就行)
+//         */
+//        mp.put(0,1);
+//        for (int i = 0,pre = 0; i < nums.length; i++) {
+//            pre += nums[i];
+//            System.out.print("i="+i+" pre="+pre+" ");
+//            if (mp.containsKey(pre-k)){
+//                count += mp.get(pre-k);
+//                System.out.print("找到子数组，count值升为"+count);
+//            }
+//            if (mp.containsKey(pre)){
+//                mp.put(pre,mp.get(pre)+1);
+//                System.out.print("pre="+pre+"++");
+//            }else{
+//                mp.put(pre,1);
+//                System.out.print("存入pre="+pre);
+//            }
+//            System.out.println();
+//        }
+//        return count;
+//    }
+//
+//    public static void main(String[] args) {
+//        System.out.println(subarraySum(new int[]{1,2,3},3));
+//    }
 
 }
